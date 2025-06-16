@@ -31,7 +31,7 @@ const Header = ({ user, onShowAuthModal }: HeaderProps) => {
             {/* Main header with primary image */}
             <div className="flex items-center justify-center gap-4 mb-4">
               <img 
-                src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=400&h=400&fit=crop&crop=center" 
+                src="https://images.unsplash.com/photo-1519741497674-611481863552?w=400&h=400&fit=crop&crop=center" 
                 alt="Wedding Toast Celebration"
                 className="w-20 h-20 md:w-24 md:h-24 object-cover rounded-full shadow-lg border-2 border-amber-200"
               />
@@ -50,17 +50,17 @@ const Header = ({ user, onShowAuthModal }: HeaderProps) => {
             </div>
             <div className="flex justify-center items-center gap-3">
               <img 
-                src="https://images.unsplash.com/photo-1465495976277-4387d4b0e4a6?w=200&h=200&fit=crop&crop=center" 
+                src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=200&h=200&fit=crop&crop=center" 
                 alt="Marriage Toast Inspiration"
                 className="w-12 h-12 object-cover rounded-full shadow-md border border-amber-100 hover:scale-105 transition-transform"
               />
               <img 
-                src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=200&h=200&fit=crop&crop=center" 
+                src="https://images.unsplash.com/photo-1464207687429-7505649dae38?w=200&h=200&fit=crop&crop=center" 
                 alt="Wedding Celebration Toast"
                 className="w-12 h-12 object-cover rounded-full shadow-md border border-amber-100 hover:scale-105 transition-transform"
               />
               <img 
-                src="https://images.unsplash.com/photo-1549451371-64aa98a6f32b?w=200&h=200&fit=crop&crop=center" 
+                src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=200&h=200&fit=crop&crop=center" 
                 alt="Champagne Wedding Toast"
                 className="w-12 h-12 object-cover rounded-full shadow-md border border-amber-100 hover:scale-105 transition-transform"
               />
