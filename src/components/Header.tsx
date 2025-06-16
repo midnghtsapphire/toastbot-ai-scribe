@@ -28,9 +28,16 @@ const Header = ({ user, onShowAuthModal }: HeaderProps) => {
       <div className="container mx-auto px-4 py-8">
         <div className="flex items-center justify-between">
           <div className="text-center flex-1">
-            <h1 className="text-4xl md:text-6xl font-serif font-bold text-gray-800 dark:text-white mb-4">
-              🎩 ToastBot
-            </h1>
+            <div className="flex items-center justify-center gap-4 mb-4">
+              <img 
+                src="https://images.app.goo.gl/yzSYM5pHaD4fGYuu7" 
+                alt="Marriage Toast"
+                className="w-16 h-16 md:w-20 md:h-20 object-cover rounded-full shadow-lg"
+              />
+              <h1 className="text-4xl md:text-6xl font-serif font-bold text-gray-800 dark:text-white">
+                ToastBot
+              </h1>
+            </div>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
               AI-powered wedding toast generator with speech coaching, analytics, and practice tools.
             </p>
