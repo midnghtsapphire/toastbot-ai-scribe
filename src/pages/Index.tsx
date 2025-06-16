@@ -15,6 +15,7 @@ import ToastForm from "@/components/ToastForm";
 import ToastOutput from "@/components/ToastOutput";
 import QuotesTab from "@/components/QuotesTab";
 import TemplatesTab from "@/components/TemplatesTab";
+import Reviews from "@/components/Reviews";
 import { useToastGeneration } from "@/hooks/useToastGeneration";
 
 const Index = () => {
@@ -143,6 +144,9 @@ const Index = () => {
           )}
         </Tabs>
       </div>
+
+      {/* Reviews Section */}
+      <Reviews />
 
       <footer className="bg-gradient-to-r from-amber-100 to-amber-50 dark:from-gray-800 dark:to-gray-700 border-t border-amber-200 dark:border-gray-600 mt-16">
         <div className="container mx-auto px-4 py-8">
