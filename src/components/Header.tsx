@@ -28,19 +28,43 @@ const Header = ({ user, onShowAuthModal }: HeaderProps) => {
       <div className="container mx-auto px-4 py-8">
         <div className="flex items-center justify-between">
           <div className="text-center flex-1">
+            {/* Main header with primary image */}
             <div className="flex items-center justify-center gap-4 mb-4">
               <img 
-                src="https://images.app.goo.gl/yzSYM5pHaD4fGYuu7" 
-                alt="Marriage Toast"
-                className="w-16 h-16 md:w-20 md:h-20 object-cover rounded-full shadow-lg"
+                src="https://images.app.goo.gl/3guxgrcrTqx22EsQ6" 
+                alt="Wedding Toast Celebration"
+                className="w-20 h-20 md:w-24 md:h-24 object-cover rounded-full shadow-lg border-2 border-amber-200"
               />
               <h1 className="text-4xl md:text-6xl font-serif font-bold text-gray-800 dark:text-white">
                 ToastBot
               </h1>
             </div>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-6">
               AI-powered wedding toast generator with speech coaching, analytics, and practice tools.
             </p>
+
+            {/* Additional inspiration images */}
+            <div className="flex justify-center items-center gap-4 mb-2">
+              <span className="text-sm text-gray-500 dark:text-gray-400 font-medium">Get inspired by:</span>
+            </div>
+            <div className="flex justify-center items-center gap-3">
+              <img 
+                src="https://images.app.goo.gl/yzSYM5pHaD4fGYuu7" 
+                alt="Marriage Toast Inspiration"
+                className="w-12 h-12 object-cover rounded-full shadow-md border border-amber-100 hover:scale-105 transition-transform"
+              />
+              <img 
+                src="https://images.app.goo.gl/y7NYaobjpmDS7QJp8" 
+                alt="Wedding Celebration Toast"
+                className="w-12 h-12 object-cover rounded-full shadow-md border border-amber-100 hover:scale-105 transition-transform"
+              />
+              <img 
+                src="https://images.app.goo.gl/Dn8C2kfki1TDhiQV8" 
+                alt="Champagne Wedding Toast"
+                className="w-12 h-12 object-cover rounded-full shadow-md border border-amber-100 hover:scale-105 transition-transform"
+              />
+            </div>
           </div>
           
           <div className="flex items-center gap-4">
