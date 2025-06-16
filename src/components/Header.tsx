@@ -60,8 +60,8 @@ const Header = ({ user, onShowAuthModal }: HeaderProps) => {
                 className="w-12 h-12 object-cover rounded-full shadow-md border border-amber-100 hover:scale-105 transition-transform"
               />
               <img 
-                src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=200&h=200&fit=crop&crop=center" 
-                alt="Champagne Glasses Toast"
+                src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=200&h=200&fit=crop&crop=center" 
+                alt="Two Champagne Glasses Toasting"
                 className="w-12 h-12 object-cover rounded-full shadow-md border border-amber-100 hover:scale-105 transition-transform"
               />
             </div>
