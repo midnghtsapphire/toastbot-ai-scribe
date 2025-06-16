@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,10 +7,16 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Copy, Download, Heart, Laugh, BookOpen, Sparkles, Users, User, Save, LogOut } from 'lucide-react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { BookOpen, Sparkles, Users, User, Save, LogOut, BarChart3, Zap } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 import AuthModal from "@/components/auth/AuthModal";
 import SavedToasts from "@/components/SavedToasts";
+import PracticeMode from "@/components/PracticeMode";
+import SpeechAnalytics from "@/components/SpeechAnalytics";
+import SpeechActions from "@/components/SpeechActions";
+import MobileToastView from "@/components/MobileToastView";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const Index = () => {
   const [generatedToast, setGeneratedToast] = useState('');
@@ -23,22 +28,25 @@ const Index = () => {
   const [selectedQuote, setSelectedQuote] = useState('');
   const [quoteFilter, setQuoteFilter] = useState('all');
   const { toast } = useToast();
-
   const [user, setUser] = useState<any>(null);
   const [showAuthModal, setShowAuthModal] = useState(false);
 
+  const [showPracticeMode, setShowPracticeMode] = useState(false);
+  const [showMobileView, setShowMobileView] = useState(false);
+  const [targetLength, setTargetLength] = useState<'short' | 'medium' | 'long'>('medium');
+
   const roles = [
     { value: 'best-man', label: 'Best Man', icon: User },
-    { value: 'maid-of-honor', label: 'Maid of Honor', icon: Heart },
+    { value: 'maid-of-honor', label: 'Maid of Honor', icon: Users },
     { value: 'father-bride', label: 'Father of the Bride', icon: Users },
-    { value: 'mother-bride', label: 'Mother of the Bride', icon: Heart },
+    { value: 'mother-bride', label: 'Mother of the Bride', icon: Users },
     { value: 'sibling', label: 'Sibling', icon: Users },
     { value: 'friend', label: 'Friend', icon: User },
   ];
 
   const tones = [
-    { value: 'funny', label: 'Funny & Light', icon: Laugh, color: 'bg-yellow-100 text-yellow-800' },
-    { value: 'romantic', label: 'Romantic', icon: Heart, color: 'bg-pink-100 text-pink-800' },
+    { value: 'funny', label: 'Funny & Light', icon: Sparkles, color: 'bg-yellow-100 text-yellow-800' },
+    { value: 'romantic', label: 'Romantic', icon: Users, color: 'bg-pink-100 text-pink-800' },
     { value: 'sentimental', label: 'Sentimental', icon: BookOpen, color: 'bg-blue-100 text-blue-800' },
     { value: 'poetic', label: 'Poetic', icon: Sparkles, color: 'bg-purple-100 text-purple-800' },
   ];
@@ -119,7 +127,9 @@ const Index = () => {
       'poetic': "with beautiful, eloquent words",
     };
 
-    const sampleToast = `Good evening, everyone!
+    const lengthMultiplier = targetLength === 'short' ? 0.7 : targetLength === 'long' ? 1.4 : 1;
+    
+    let sampleToast = `Good evening, everyone!
 
 ${roleContext[selectedRole as keyof typeof roleContext]} with ${coupleName1} and ${coupleName2}. ${storyHighlight ? `I'll never forget ${storyHighlight}.` : ''}
 
@@ -135,16 +145,8 @@ Cheers! 🥂`;
 
     setGeneratedToast(sampleToast);
     toast({
-      title: "Toast Generated!",
-      description: "Your personalized wedding toast is ready.",
-    });
-  };
-
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(generatedToast);
-    toast({
-      title: "Copied!",
-      description: "Toast copied to clipboard.",
+      title: "✨ Toast Generated!",
+      description: "Your personalized wedding toast is ready with analytics.",
     });
   };
 
@@ -193,26 +195,27 @@ Cheers! 🥂`;
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-amber-50">
+    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-amber-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       {/* Header */}
-      <div className="bg-gradient-to-r from-amber-100 to-amber-50 border-b border-amber-200">
+      <div className="bg-gradient-to-r from-amber-100 to-amber-50 dark:from-gray-800 dark:to-gray-700 border-b border-amber-200 dark:border-gray-600">
         <div className="container mx-auto px-4 py-8">
           <div className="flex items-center justify-between">
             <div className="text-center flex-1">
-              <h1 className="text-4xl md:text-6xl font-serif font-bold text-gray-800 mb-4">
+              <h1 className="text-4xl md:text-6xl font-serif font-bold text-gray-800 dark:text-white mb-4">
                 🎩 ToastBot
               </h1>
-              <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                AI-powered wedding toast generator. Craft the perfect speech with quotes, templates, and personalized touches.
+              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                AI-powered wedding toast generator with speech coaching, analytics, and practice tools.
               </p>
             </div>
             
-            {/* Auth Section */}
+            {/* Auth & Theme Section */}
             <div className="flex items-center gap-4">
+              <ThemeToggle />
               {user ? (
                 <div className="flex items-center gap-3">
                   <div className="text-right">
-                    <p className="text-sm font-medium text-gray-800">Welcome, {user.name}!</p>
+                    <p className="text-sm font-medium text-gray-800 dark:text-white">Welcome, {user.name}!</p>
                     {user.isPremium && (
                       <Badge variant="secondary" className="text-xs">Premium</Badge>
                     )}
@@ -243,29 +246,29 @@ Cheers! 🥂`;
 
       <div className="container mx-auto px-4 py-8">
         <Tabs defaultValue="generator" className="w-full">
-          <TabsList className={`grid w-full ${user ? 'grid-cols-4' : 'grid-cols-3'} mb-8`}>
-            <TabsTrigger value="generator">Toast Generator</TabsTrigger>
-            <TabsTrigger value="quotes">Quote Library</TabsTrigger>
-            <TabsTrigger value="templates">Templates</TabsTrigger>
-            {user && <TabsTrigger value="saved">My Toasts</TabsTrigger>}
+          <TabsList className={`grid w-full ${user ? 'grid-cols-5' : 'grid-cols-4'} mb-8`}>
+            <TabsTrigger value="generator">🎯 Generator</TabsTrigger>
+            <TabsTrigger value="analytics">📊 Analytics</TabsTrigger>
+            <TabsTrigger value="quotes">📖 Quotes</TabsTrigger>
+            <TabsTrigger value="templates">📝 Templates</TabsTrigger>
+            {user && <TabsTrigger value="saved">💾 My Toasts</TabsTrigger>}
           </TabsList>
 
-          {/* Toast Generator Tab */}
+          {/* Enhanced Toast Generator Tab */}
           <TabsContent value="generator" className="space-y-6">
             <div className="grid lg:grid-cols-2 gap-8">
-              {/* Input Form */}
+              {/* Input Form with new features */}
               <Card className="shadow-lg border-amber-100">
                 <CardHeader className="bg-gradient-to-r from-amber-50 to-amber-100">
                   <CardTitle className="flex items-center gap-2">
                     <Sparkles className="h-5 w-5 text-amber-600" />
-                    Create Your Toast
+                    AI Toast Generator
                   </CardTitle>
                   <CardDescription>
-                    Fill in the details to generate your personalized wedding toast
+                    Enhanced with speech analytics and practice tools
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6 pt-6">
-                  {/* Role Selection */}
                   <div className="space-y-2">
                     <Label htmlFor="role">Your Role *</Label>
                     <Select value={selectedRole} onValueChange={setSelectedRole}>
@@ -288,7 +291,6 @@ Cheers! 🥂`;
                     </Select>
                   </div>
 
-                  {/* Tone Selection */}
                   <div className="space-y-3">
                     <Label>Toast Tone *</Label>
                     <div className="grid grid-cols-2 gap-2">
@@ -309,7 +311,6 @@ Cheers! 🥂`;
                     </div>
                   </div>
 
-                  {/* Couple Names */}
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="name1">First Name *</Label>
@@ -331,7 +332,21 @@ Cheers! 🥂`;
                     </div>
                   </div>
 
-                  {/* Story Highlight */}
+                  {/* NEW: Target Length Selection */}
+                  <div className="space-y-2">
+                    <Label>Target Length</Label>
+                    <Select value={targetLength} onValueChange={(value: 'short' | 'medium' | 'long') => setTargetLength(value)}>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="short">Short (1-2 min)</SelectItem>
+                        <SelectItem value="medium">Medium (2-3 min)</SelectItem>
+                        <SelectItem value="long">Long (3-4 min)</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
                   <div className="space-y-2">
                     <Label htmlFor="story">Story Highlight (Optional)</Label>
                     <Textarea
@@ -343,7 +358,6 @@ Cheers! 🥂`;
                     />
                   </div>
 
-                  {/* Selected Quote Display */}
                   {selectedQuote && (
                     <div className="p-4 bg-amber-50 rounded-lg border border-amber-200">
                       <Label className="text-sm font-medium text-amber-800">Selected Quote:</Label>
@@ -352,58 +366,78 @@ Cheers! 🥂`;
                   )}
 
                   <Button onClick={generateToast} className="w-full bg-amber-600 hover:bg-amber-700" size="lg">
-                    <Sparkles className="h-4 w-4 mr-2" />
-                    Generate My Toast
+                    <Zap className="h-4 w-4 mr-2" />
+                    Generate AI Toast
                   </Button>
                 </CardContent>
               </Card>
 
-              {/* Generated Toast Output */}
-              <Card className="shadow-lg border-amber-100">
-                <CardHeader className="bg-gradient-to-r from-amber-50 to-amber-100">
-                  <CardTitle>Your Generated Toast</CardTitle>
-                  <CardDescription>
-                    Review and customize your personalized wedding toast
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="pt-6">
-                  {generatedToast ? (
-                    <div className="space-y-4">
-                      <Textarea
-                        value={generatedToast}
-                        onChange={(e) => setGeneratedToast(e.target.value)}
-                        className="min-h-[400px] font-serif text-base leading-relaxed"
-                        placeholder="Your generated toast will appear here..."
-                      />
-                      <div className="flex gap-2">
-                        <Button onClick={copyToClipboard} variant="outline" size="sm">
-                          <Copy className="h-4 w-4 mr-2" />
-                          Copy
-                        </Button>
-                        <Button onClick={saveToast} variant="outline" size="sm">
-                          <Save className="h-4 w-4 mr-2" />
-                          {user ? 'Save Toast' : 'Sign in to Save'}
-                        </Button>
-                        <Button variant="outline" size="sm">
-                          <Download className="h-4 w-4 mr-2" />
-                          Export
-                        </Button>
+              {/* Enhanced Generated Toast Output */}
+              <div className="space-y-6">
+                <Card className="shadow-lg border-amber-100">
+                  <CardHeader className="bg-gradient-to-r from-amber-50 to-amber-100">
+                    <CardTitle>Your Generated Toast</CardTitle>
+                    <CardDescription>
+                      AI-powered with speech analytics and practice tools
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="pt-6">
+                    {generatedToast ? (
+                      <div className="space-y-4">
+                        <Textarea
+                          value={generatedToast}
+                          onChange={(e) => setGeneratedToast(e.target.value)}
+                          className="min-h-[300px] font-serif text-base leading-relaxed"
+                          placeholder="Your generated toast will appear here..."
+                        />
+                        
+                        {/* Action Buttons */}
+                        <div className="flex gap-2 flex-wrap">
+                          <Button onClick={saveToast} variant="outline" size="sm">
+                            <Save className="h-4 w-4 mr-2" />
+                            {user ? 'Save Toast' : 'Sign in to Save'}
+                          </Button>
+                        </div>
                       </div>
-                    </div>
-                  ) : (
-                    <div className="min-h-[400px] flex items-center justify-center text-gray-500">
-                      <div className="text-center">
-                        <Sparkles className="h-12 w-12 mx-auto mb-4 text-gray-300" />
-                        <p>Fill out the form and click "Generate My Toast" to see your personalized speech appear here!</p>
+                    ) : (
+                      <div className="min-h-[300px] flex items-center justify-center text-gray-500">
+                        <div className="text-center">
+                          <Zap className="h-12 w-12 mx-auto mb-4 text-gray-300" />
+                          <p>Fill out the form and click "Generate AI Toast" to see your personalized speech with analytics!</p>
+                        </div>
                       </div>
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
+                    )}
+                  </CardContent>
+                </Card>
+
+                {/* NEW: Speech Actions */}
+                {generatedToast && (
+                  <SpeechActions
+                    toast={generatedToast}
+                    onPracticeMode={() => setShowPracticeMode(true)}
+                    onMobileView={() => setShowMobileView(true)}
+                  />
+                )}
+              </div>
             </div>
           </TabsContent>
 
-          {/* Quote Library Tab */}
+          {/* NEW: Analytics Tab */}
+          <TabsContent value="analytics" className="space-y-6">
+            {generatedToast ? (
+              <SpeechAnalytics toast={generatedToast} />
+            ) : (
+              <Card className="shadow-lg border-amber-100">
+                <CardContent className="pt-12 pb-12">
+                  <div className="text-center text-gray-500">
+                    <BarChart3 className="h-12 w-12 mx-auto mb-4 text-gray-300" />
+                    <p>Generate a toast first to see detailed speech analytics!</p>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+          </TabsContent>
+
           <TabsContent value="quotes" className="space-y-6">
             <Card className="shadow-lg border-amber-100">
               <CardHeader className="bg-gradient-to-r from-amber-50 to-amber-100">
@@ -416,7 +450,6 @@ Cheers! 🥂`;
                 </CardDescription>
               </CardHeader>
               <CardContent className="pt-6">
-                {/* Quote Filters */}
                 <div className="flex flex-wrap gap-2 mb-6">
                   {['all', 'romantic', 'funny', 'classic', 'modern'].map((filter) => (
                     <Button
@@ -431,7 +464,6 @@ Cheers! 🥂`;
                   ))}
                 </div>
 
-                {/* Quote Grid */}
                 <div className="grid md:grid-cols-2 gap-4">
                   {getFilteredQuotes().map((quote, index) => (
                     <Card key={index} className="border-amber-100 hover:shadow-md transition-shadow">
@@ -460,7 +492,6 @@ Cheers! 🥂`;
             </Card>
           </TabsContent>
 
-          {/* Templates Tab */}
           <TabsContent value="templates" className="space-y-6">
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {roles.map((role) => {
@@ -492,7 +523,6 @@ Cheers! 🥂`;
             </div>
           </TabsContent>
 
-          {/* Saved Toasts Tab */}
           {user && (
             <TabsContent value="saved" className="space-y-6">
               <SavedToasts user={user} />
@@ -502,9 +532,9 @@ Cheers! 🥂`;
       </div>
 
       {/* Footer */}
-      <footer className="bg-gradient-to-r from-amber-100 to-amber-50 border-t border-amber-200 mt-16">
+      <footer className="bg-gradient-to-r from-amber-100 to-amber-50 dark:from-gray-800 dark:to-gray-700 border-t border-amber-200 dark:border-gray-600 mt-16">
         <div className="container mx-auto px-4 py-8">
-          <div className="text-center text-gray-600">
+          <div className="text-center text-gray-600 dark:text-gray-300">
             <p className="text-sm">
               Made with ❤️ for unforgettable wedding moments | ToastBot © 2024
             </p>
@@ -512,12 +542,32 @@ Cheers! 🥂`;
         </div>
       </footer>
 
-      {/* Auth Modal */}
+      {/* Modals */}
       <AuthModal
         isOpen={showAuthModal}
         onClose={() => setShowAuthModal(false)}
         onSuccess={handleAuthSuccess}
       />
+
+      {/* NEW: Practice Mode Modal */}
+      <Dialog open={showPracticeMode} onOpenChange={setShowPracticeMode}>
+        <DialogContent className="max-w-6xl max-h-[90vh] overflow-auto">
+          {generatedToast && (
+            <PracticeMode
+              toast={generatedToast}
+              onClose={() => setShowPracticeMode(false)}
+            />
+          )}
+        </DialogContent>
+      </Dialog>
+
+      {/* NEW: Mobile View Modal */}
+      {showMobileView && generatedToast && (
+        <MobileToastView
+          toast={generatedToast}
+          onClose={() => setShowMobileView(false)}
+        />
+      )}
     </div>
   );
 };
