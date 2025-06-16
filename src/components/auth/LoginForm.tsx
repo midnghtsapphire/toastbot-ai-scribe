@@ -33,12 +33,12 @@ const LoginForm = ({ onToggleMode, onSuccess }: LoginFormProps) => {
         isPremium: false
       };
 
-      localStorage.setItem('officiantbot_user', JSON.stringify(mockUser));
+      localStorage.setItem('toastbot_user', JSON.stringify(mockUser));
       onSuccess(mockUser);
       
       toast({
         title: "Welcome back!",
-        description: "Successfully logged into OfficiantBot.",
+        description: "Successfully logged into ToastBot.",
       });
     } catch (error) {
       toast({
