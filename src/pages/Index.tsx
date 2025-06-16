@@ -67,7 +67,7 @@ const Index = () => {
   };
 
   useEffect(() => {
-    const savedUser = localStorage.getItem('toastbot_user');
+    const savedUser = localStorage.getItem('officiantbot_user');
     if (savedUser) {
       setUser(JSON.parse(savedUser));
     }
