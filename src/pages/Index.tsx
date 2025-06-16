@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
@@ -8,8 +7,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Copy, Download, Heart, Laugh, BookOpen, Sparkles, Users, User } from 'lucide-react';
+import { Copy, Download, Heart, Laugh, BookOpen, Sparkles, Users, User, Save, LogOut } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
+import AuthModal from "@/components/auth/AuthModal";
+import SavedToasts from "@/components/SavedToasts";
 
 const Index = () => {
   const [generatedToast, setGeneratedToast] = useState('');
@@ -21,6 +22,9 @@ const Index = () => {
   const [selectedQuote, setSelectedQuote] = useState('');
   const [quoteFilter, setQuoteFilter] = useState('all');
   const { toast } = useToast();
+
+  const [user, setUser] = useState<any>(null);
+  const [showAuthModal, setShowAuthModal] = useState(false);
 
   const roles = [
     { value: 'best-man', label: 'Best Man', icon: User },
@@ -59,6 +63,26 @@ const Index = () => {
       { text: "I love you without knowing how, or when, or from where.", author: "Pablo Neruda" },
       { text: "In all the world, there is no heart for me like yours.", author: "Maya Angelou" },
     ],
+  };
+
+  useEffect(() => {
+    const savedUser = localStorage.getItem('toastbot_user');
+    if (savedUser) {
+      setUser(JSON.parse(savedUser));
+    }
+  }, []);
+
+  const handleAuthSuccess = (userData: any) => {
+    setUser(userData);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('toastbot_user');
+    setUser(null);
+    toast({
+      title: "Logged out",
+      description: "You've been successfully logged out.",
+    });
   };
 
   const getFilteredQuotes = () => {
@@ -131,28 +155,98 @@ Cheers! 🥂`;
     });
   };
 
+  const saveToast = () => {
+    if (!user) {
+      setShowAuthModal(true);
+      return;
+    }
+
+    if (!generatedToast) {
+      toast({
+        title: "No toast to save",
+        description: "Generate a toast first before saving.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const savedToast = {
+      id: Date.now().toString(),
+      title: `${selectedRole} toast for ${coupleName1} & ${coupleName2}`,
+      content: generatedToast,
+      role: selectedRole,
+      tone: selectedTone,
+      createdAt: new Date().toISOString(),
+      isFavorite: false
+    };
+
+    const existing = localStorage.getItem(`toasts_${user.id}`);
+    const savedToasts = existing ? JSON.parse(existing) : [];
+    savedToasts.unshift(savedToast);
+    localStorage.setItem(`toasts_${user.id}`, JSON.stringify(savedToasts));
+
+    toast({
+      title: "Toast saved!",
+      description: "Your toast has been saved to your library.",
+    });
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-amber-50">
       {/* Header */}
       <div className="bg-gradient-to-r from-amber-100 to-amber-50 border-b border-amber-200">
         <div className="container mx-auto px-4 py-8">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-serif font-bold text-gray-800 mb-4">
-              🥂 ToastBot
-            </h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              AI-powered wedding toast generator. Craft the perfect speech with quotes, templates, and personalized touches.
-            </p>
+          <div className="flex items-center justify-between">
+            <div className="text-center flex-1">
+              <h1 className="text-4xl md:text-6xl font-serif font-bold text-gray-800 mb-4">
+                🥂 ToastBot
+              </h1>
+              <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                AI-powered wedding toast generator. Craft the perfect speech with quotes, templates, and personalized touches.
+              </p>
+            </div>
+            
+            {/* Auth Section */}
+            <div className="flex items-center gap-4">
+              {user ? (
+                <div className="flex items-center gap-3">
+                  <div className="text-right">
+                    <p className="text-sm font-medium text-gray-800">Welcome, {user.name}!</p>
+                    {user.isPremium && (
+                      <Badge variant="secondary" className="text-xs">Premium</Badge>
+                    )}
+                  </div>
+                  <Button
+                    onClick={handleLogout}
+                    variant="outline"
+                    size="sm"
+                    className="border-amber-300 hover:bg-amber-50"
+                  >
+                    <LogOut className="h-4 w-4 mr-2" />
+                    Logout
+                  </Button>
+                </div>
+              ) : (
+                <Button
+                  onClick={() => setShowAuthModal(true)}
+                  className="bg-amber-600 hover:bg-amber-700"
+                >
+                  <User className="h-4 w-4 mr-2" />
+                  Sign In
+                </Button>
+              )}
+            </div>
           </div>
         </div>
       </div>
 
       <div className="container mx-auto px-4 py-8">
         <Tabs defaultValue="generator" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-3 mb-8">
+          <TabsList className={`grid w-full ${user ? 'grid-cols-4' : 'grid-cols-3'} mb-8`}>
             <TabsTrigger value="generator">Toast Generator</TabsTrigger>
             <TabsTrigger value="quotes">Quote Library</TabsTrigger>
             <TabsTrigger value="templates">Templates</TabsTrigger>
+            {user && <TabsTrigger value="saved">My Toasts</TabsTrigger>}
           </TabsList>
 
           {/* Toast Generator Tab */}
@@ -285,6 +379,10 @@ Cheers! 🥂`;
                           <Copy className="h-4 w-4 mr-2" />
                           Copy
                         </Button>
+                        <Button onClick={saveToast} variant="outline" size="sm">
+                          <Save className="h-4 w-4 mr-2" />
+                          {user ? 'Save Toast' : 'Sign in to Save'}
+                        </Button>
                         <Button variant="outline" size="sm">
                           <Download className="h-4 w-4 mr-2" />
                           Export
@@ -392,6 +490,13 @@ Cheers! 🥂`;
               })}
             </div>
           </TabsContent>
+
+          {/* Saved Toasts Tab */}
+          {user && (
+            <TabsContent value="saved" className="space-y-6">
+              <SavedToasts user={user} />
+            </TabsContent>
+          )}
         </Tabs>
       </div>
 
@@ -405,6 +510,13 @@ Cheers! 🥂`;
           </div>
         </div>
       </footer>
+
+      {/* Auth Modal */}
+      <AuthModal
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+        onSuccess={handleAuthSuccess}
+      />
     </div>
   );
 };
