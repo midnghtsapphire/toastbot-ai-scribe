@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -77,7 +78,7 @@ const Index = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('toastbot_user');
+    localStorage.removeItem('officiantbot_user');
     setUser(null);
     toast({
       title: "Logged out",
@@ -199,7 +200,7 @@ Cheers! 🥂`;
           <div className="flex items-center justify-between">
             <div className="text-center flex-1">
               <h1 className="text-4xl md:text-6xl font-serif font-bold text-gray-800 mb-4">
-                🥂 ToastBot
+                🎩 OfficiantBot
               </h1>
               <p className="text-xl text-gray-600 max-w-2xl mx-auto">
                 AI-powered wedding toast generator. Craft the perfect speech with quotes, templates, and personalized touches.
@@ -505,7 +506,7 @@ Cheers! 🥂`;
         <div className="container mx-auto px-4 py-8">
           <div className="text-center text-gray-600">
             <p className="text-sm">
-              Made with ❤️ for unforgettable wedding moments | ToastBot © 2024
+              Made with ❤️ for unforgettable wedding moments | OfficiantBot © 2024
             </p>
           </div>
         </div>
