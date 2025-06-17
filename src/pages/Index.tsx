@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
@@ -68,19 +69,36 @@ const Index = () => {
         onShowAuthModal={() => setShowAuthModal(true)} 
       />
 
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-2 sm:px-4 py-4 sm:py-8">
         <Tabs defaultValue="generator" className="w-full">
-          <TabsList className={`grid w-full ${user ? 'grid-cols-5' : 'grid-cols-4'} mb-8 bg-blue-50 border-blue-200`}>
-            <TabsTrigger value="generator" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white">🎯 Generator</TabsTrigger>
-            <TabsTrigger value="analytics" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white">📊 Analytics</TabsTrigger>
-            <TabsTrigger value="quotes" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white">📖 Quotes</TabsTrigger>
-            <TabsTrigger value="templates" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white">📝 Templates</TabsTrigger>
-            {user && <TabsTrigger value="saved" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white">💾 My Toasts</TabsTrigger>}
+          <TabsList className={`grid w-full ${user ? 'grid-cols-5' : 'grid-cols-4'} mb-4 sm:mb-8 bg-blue-50 border-blue-200 h-auto`}>
+            <TabsTrigger value="generator" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white text-xs sm:text-sm p-2 sm:p-3">
+              <span className="hidden sm:inline">🎯 Generator</span>
+              <span className="sm:hidden">🎯</span>
+            </TabsTrigger>
+            <TabsTrigger value="analytics" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white text-xs sm:text-sm p-2 sm:p-3">
+              <span className="hidden sm:inline">📊 Analytics</span>
+              <span className="sm:hidden">📊</span>
+            </TabsTrigger>
+            <TabsTrigger value="quotes" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white text-xs sm:text-sm p-2 sm:p-3">
+              <span className="hidden sm:inline">📖 Quotes</span>
+              <span className="sm:hidden">📖</span>
+            </TabsTrigger>
+            <TabsTrigger value="templates" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white text-xs sm:text-sm p-2 sm:p-3">
+              <span className="hidden sm:inline">📝 Templates</span>
+              <span className="sm:hidden">📝</span>
+            </TabsTrigger>
+            {user && (
+              <TabsTrigger value="saved" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white text-xs sm:text-sm p-2 sm:p-3">
+                <span className="hidden sm:inline">💾 My Toasts</span>
+                <span className="sm:hidden">💾</span>
+              </TabsTrigger>
+            )}
           </TabsList>
 
-          <TabsContent value="generator" className="space-y-6">
-            <div className="grid lg:grid-cols-2 gap-8">
-              <div className="bg-blue-50 p-6 rounded-lg border border-blue-200">
+          <TabsContent value="generator" className="space-y-4 sm:space-y-6">
+            <div className="grid lg:grid-cols-2 gap-4 sm:gap-8">
+              <div className="bg-blue-50 p-3 sm:p-6 rounded-lg border border-blue-200">
                 <ToastForm
                   selectedRole={selectedRole}
                   setSelectedRole={setSelectedRole}
@@ -99,8 +117,8 @@ const Index = () => {
                 />
               </div>
 
-              <div className="space-y-6">
-                <div className="bg-blue-50 p-6 rounded-lg border border-blue-200">
+              <div className="space-y-4 sm:space-y-6">
+                <div className="bg-blue-50 p-3 sm:p-6 rounded-lg border border-blue-200">
                   <ToastOutput
                     generatedToast={generatedToast}
                     onToastChange={setGeneratedToast}
@@ -114,7 +132,7 @@ const Index = () => {
                 </div>
 
                 {generatedToast && (
-                  <div className="bg-blue-50 p-6 rounded-lg border border-blue-200">
+                  <div className="bg-blue-50 p-3 sm:p-6 rounded-lg border border-blue-200">
                     <SpeechActions
                       toast={generatedToast}
                       onPracticeMode={() => setShowPracticeMode(true)}
@@ -126,38 +144,38 @@ const Index = () => {
             </div>
           </TabsContent>
 
-          <TabsContent value="analytics" className="space-y-6">
+          <TabsContent value="analytics" className="space-y-4 sm:space-y-6">
             {generatedToast ? (
-              <div className="bg-blue-50 p-6 rounded-lg border border-blue-200">
+              <div className="bg-blue-50 p-3 sm:p-6 rounded-lg border border-blue-200">
                 <SpeechAnalytics toast={generatedToast} />
               </div>
             ) : (
               <Card className="shadow-lg border-blue-200 bg-blue-50">
-                <CardContent className="pt-12 pb-12">
+                <CardContent className="pt-8 sm:pt-12 pb-8 sm:pb-12">
                   <div className="text-center text-blue-600">
-                    <BarChart3 className="h-12 w-12 mx-auto mb-4 text-blue-400" />
-                    <p>Generate a toast first to see detailed speech analytics!</p>
+                    <BarChart3 className="h-8 w-8 sm:h-12 sm:w-12 mx-auto mb-4 text-blue-400" />
+                    <p className="text-sm sm:text-base">Generate a toast first to see detailed speech analytics!</p>
                   </div>
                 </CardContent>
               </Card>
             )}
           </TabsContent>
 
-          <TabsContent value="quotes" className="space-y-6">
-            <div className="bg-blue-50 p-6 rounded-lg border border-blue-200">
+          <TabsContent value="quotes" className="space-y-4 sm:space-y-6">
+            <div className="bg-blue-50 p-3 sm:p-6 rounded-lg border border-blue-200">
               <QuotesTab onQuoteSelect={setSelectedQuote} />
             </div>
           </TabsContent>
 
-          <TabsContent value="templates" className="space-y-6">
-            <div className="bg-blue-50 p-6 rounded-lg border border-blue-200">
+          <TabsContent value="templates" className="space-y-4 sm:space-y-6">
+            <div className="bg-blue-50 p-3 sm:p-6 rounded-lg border border-blue-200">
               <TemplatesTab onRoleSelect={setSelectedRole} />
             </div>
           </TabsContent>
 
           {user && (
-            <TabsContent value="saved" className="space-y-6">
-              <div className="bg-blue-50 p-6 rounded-lg border border-blue-200">
+            <TabsContent value="saved" className="space-y-4 sm:space-y-6">
+              <div className="bg-blue-50 p-3 sm:p-6 rounded-lg border border-blue-200">
                 <SavedToasts user={user} />
               </div>
             </TabsContent>
@@ -168,10 +186,10 @@ const Index = () => {
       {/* Reviews Section */}
       <Reviews />
 
-      <footer className="bg-gradient-to-r from-yellow-100 to-yellow-50 dark:from-yellow-800 dark:to-yellow-700 border-t border-yellow-200 dark:border-yellow-600 mt-16">
-        <div className="container mx-auto px-4 py-8">
+      <footer className="bg-gradient-to-r from-yellow-100 to-yellow-50 dark:from-yellow-800 dark:to-yellow-700 border-t border-yellow-200 dark:border-yellow-600 mt-8 sm:mt-16">
+        <div className="container mx-auto px-2 sm:px-4 py-4 sm:py-8">
           <div className="text-center text-yellow-700 dark:text-yellow-200">
-            <p className="text-sm">
+            <p className="text-xs sm:text-sm">
               Made with ❤️ for unforgettable wedding moments | WeddingToastBot © 2024
             </p>
             <p className="text-xs mt-1">

@@ -59,20 +59,20 @@ const ToastForm = ({
 
   return (
     <Card className="shadow-lg border-amber-100">
-      <CardHeader className="bg-gradient-to-r from-amber-50 to-amber-100">
-        <CardTitle className="flex items-center gap-2">
-          <Sparkles className="h-5 w-5 text-amber-600" />
+      <CardHeader className="bg-gradient-to-r from-amber-50 to-amber-100 p-3 sm:p-6">
+        <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
+          <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-amber-600" />
           AI Toast Generator
         </CardTitle>
-        <CardDescription>
+        <CardDescription className="text-sm">
           Enhanced with speech analytics and practice tools
         </CardDescription>
       </CardHeader>
-      <CardContent className="space-y-6 pt-6">
+      <CardContent className="space-y-4 sm:space-y-6 pt-3 sm:pt-6 p-3 sm:p-6">
         <div className="space-y-2">
-          <Label htmlFor="role">Your Role *</Label>
+          <Label htmlFor="role" className="text-sm sm:text-base">Your Role *</Label>
           <Select value={selectedRole} onValueChange={setSelectedRole}>
-            <SelectTrigger>
+            <SelectTrigger className="h-10 sm:h-11">
               <SelectValue placeholder="Select your role" />
             </SelectTrigger>
             <SelectContent>
@@ -81,8 +81,8 @@ const ToastForm = ({
                 return (
                   <SelectItem key={role.value} value={role.value}>
                     <div className="flex items-center gap-2">
-                      <Icon className="h-4 w-4" />
-                      {role.label}
+                      <Icon className="h-3 w-3 sm:h-4 sm:w-4" />
+                      <span className="text-sm">{role.label}</span>
                     </div>
                   </SelectItem>
                 );
@@ -92,8 +92,8 @@ const ToastForm = ({
         </div>
 
         <div className="space-y-3">
-          <Label>Toast Tone *</Label>
-          <div className="grid grid-cols-2 gap-2">
+          <Label className="text-sm sm:text-base">Toast Tone *</Label>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {tones.map((tone) => {
               const Icon = tone.icon;
               return (
@@ -101,41 +101,43 @@ const ToastForm = ({
                   key={tone.value}
                   variant={selectedTone === tone.value ? "default" : "outline"}
                   onClick={() => setSelectedTone(tone.value)}
-                  className="justify-start h-auto p-3"
+                  className="justify-start h-auto p-2 sm:p-3"
                 >
-                  <Icon className="h-4 w-4 mr-2" />
-                  <span className="text-sm">{tone.label}</span>
+                  <Icon className="h-3 w-3 sm:h-4 sm:w-4 mr-2" />
+                  <span className="text-xs sm:text-sm">{tone.label}</span>
                 </Button>
               );
             })}
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="name1">First Name *</Label>
+            <Label htmlFor="name1" className="text-sm sm:text-base">First Name *</Label>
             <Input
               id="name1"
               placeholder="e.g., Sarah"
               value={coupleName1}
               onChange={(e) => setCoupleName1(e.target.value)}
+              className="h-10 sm:h-11"
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="name2">Partner's Name *</Label>
+            <Label htmlFor="name2" className="text-sm sm:text-base">Partner's Name *</Label>
             <Input
               id="name2"
               placeholder="e.g., Michael"
               value={coupleName2}
               onChange={(e) => setCoupleName2(e.target.value)}
+              className="h-10 sm:h-11"
             />
           </div>
         </div>
 
         <div className="space-y-2">
-          <Label>Target Length</Label>
+          <Label className="text-sm sm:text-base">Target Length</Label>
           <Select value={targetLength} onValueChange={setTargetLength}>
-            <SelectTrigger>
+            <SelectTrigger className="h-10 sm:h-11">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -147,26 +149,27 @@ const ToastForm = ({
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="story">Story Highlight (Optional)</Label>
+          <Label htmlFor="story" className="text-sm sm:text-base">Story Highlight (Optional)</Label>
           <Textarea
             id="story"
             placeholder="Share a memorable moment or story about the couple..."
             value={storyHighlight}
             onChange={(e) => setStoryHighlight(e.target.value)}
             rows={3}
+            className="text-sm sm:text-base"
           />
         </div>
 
         {selectedQuote && (
-          <div className="p-4 bg-amber-50 rounded-lg border border-amber-200">
-            <Label className="text-sm font-medium text-amber-800">Selected Quote:</Label>
-            <p className="text-sm text-amber-700 mt-1 italic">"{selectedQuote}"</p>
+          <div className="p-3 sm:p-4 bg-amber-50 rounded-lg border border-amber-200">
+            <Label className="text-xs sm:text-sm font-medium text-amber-800">Selected Quote:</Label>
+            <p className="text-xs sm:text-sm text-amber-700 mt-1 italic">"{selectedQuote}"</p>
           </div>
         )}
 
-        <Button onClick={onGenerate} className="w-full bg-amber-600 hover:bg-amber-700" size="lg">
+        <Button onClick={onGenerate} className="w-full bg-amber-600 hover:bg-amber-700 h-11 sm:h-12" size="lg">
           <Zap className="h-4 w-4 mr-2" />
-          Generate AI Toast
+          <span className="text-sm sm:text-base">Generate AI Toast</span>
         </Button>
       </CardContent>
     </Card>
