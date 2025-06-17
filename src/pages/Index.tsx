@@ -19,6 +19,8 @@ import Reviews from "@/components/Reviews";
 import { useToastGeneration } from "@/hooks/useToastGeneration";
 
 const Index = () => {
+  console.log('Index component rendering - ToastBot app loaded');
+  
   const [user, setUser] = useState<any>(null);
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [showPracticeMode, setShowPracticeMode] = useState(false);
@@ -45,6 +47,7 @@ const Index = () => {
   } = useToastGeneration();
 
   useEffect(() => {
+    console.log('Index component mounted - checking for saved user');
     const savedUser = localStorage.getItem('toastbot_user');
     if (savedUser) {
       setUser(JSON.parse(savedUser));
@@ -52,8 +55,12 @@ const Index = () => {
   }, []);
 
   const handleAuthSuccess = (userData: any) => {
+    console.log('Auth success:', userData);
     setUser(userData);
   };
+
+  console.log('Current user state:', user);
+  console.log('Current route should be ToastBot app');
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-amber-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
