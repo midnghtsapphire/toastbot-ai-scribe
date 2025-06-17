@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
@@ -19,7 +18,7 @@ import Reviews from "@/components/Reviews";
 import { useToastGeneration } from "@/hooks/useToastGeneration";
 
 const Index = () => {
-  console.log('Index component rendering - ToastBot app loaded');
+  console.log('Index component rendering - WeddingToastBot app loaded');
   
   const [user, setUser] = useState<any>(null);
   const [showAuthModal, setShowAuthModal] = useState(false);
@@ -60,10 +59,10 @@ const Index = () => {
   };
 
   console.log('Current user state:', user);
-  console.log('Current route should be ToastBot app');
+  console.log('Current route should be WeddingToastBot app');
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-amber-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-white to-yellow-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       <Header 
         user={user} 
         onShowAuthModal={() => setShowAuthModal(true)} 
@@ -71,51 +70,57 @@ const Index = () => {
 
       <div className="container mx-auto px-4 py-8">
         <Tabs defaultValue="generator" className="w-full">
-          <TabsList className={`grid w-full ${user ? 'grid-cols-5' : 'grid-cols-4'} mb-8`}>
-            <TabsTrigger value="generator">🎯 Generator</TabsTrigger>
-            <TabsTrigger value="analytics">📊 Analytics</TabsTrigger>
-            <TabsTrigger value="quotes">📖 Quotes</TabsTrigger>
-            <TabsTrigger value="templates">📝 Templates</TabsTrigger>
-            {user && <TabsTrigger value="saved">💾 My Toasts</TabsTrigger>}
+          <TabsList className={`grid w-full ${user ? 'grid-cols-5' : 'grid-cols-4'} mb-8 bg-blue-50 border-blue-200`}>
+            <TabsTrigger value="generator" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white">🎯 Generator</TabsTrigger>
+            <TabsTrigger value="analytics" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white">📊 Analytics</TabsTrigger>
+            <TabsTrigger value="quotes" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white">📖 Quotes</TabsTrigger>
+            <TabsTrigger value="templates" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white">📝 Templates</TabsTrigger>
+            {user && <TabsTrigger value="saved" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white">💾 My Toasts</TabsTrigger>}
           </TabsList>
 
           <TabsContent value="generator" className="space-y-6">
             <div className="grid lg:grid-cols-2 gap-8">
-              <ToastForm
-                selectedRole={selectedRole}
-                setSelectedRole={setSelectedRole}
-                selectedTone={selectedTone}
-                setSelectedTone={setSelectedTone}
-                coupleName1={coupleName1}
-                setCoupleName1={setCoupleName1}
-                coupleName2={coupleName2}
-                setCoupleName2={setCoupleName2}
-                storyHighlight={storyHighlight}
-                setStoryHighlight={setStoryHighlight}
-                selectedQuote={selectedQuote}
-                targetLength={targetLength}
-                setTargetLength={setTargetLength}
-                onGenerate={generateToast}
-              />
+              <div className="bg-blue-50 p-6 rounded-lg border border-blue-200">
+                <ToastForm
+                  selectedRole={selectedRole}
+                  setSelectedRole={setSelectedRole}
+                  selectedTone={selectedTone}
+                  setSelectedTone={setSelectedTone}
+                  coupleName1={coupleName1}
+                  setCoupleName1={setCoupleName1}
+                  coupleName2={coupleName2}
+                  setCoupleName2={setCoupleName2}
+                  storyHighlight={storyHighlight}
+                  setStoryHighlight={setStoryHighlight}
+                  selectedQuote={selectedQuote}
+                  targetLength={targetLength}
+                  setTargetLength={setTargetLength}
+                  onGenerate={generateToast}
+                />
+              </div>
 
               <div className="space-y-6">
-                <ToastOutput
-                  generatedToast={generatedToast}
-                  onToastChange={setGeneratedToast}
-                  user={user}
-                  selectedRole={selectedRole}
-                  selectedTone={selectedTone}
-                  coupleName1={coupleName1}
-                  coupleName2={coupleName2}
-                  onShowAuthModal={() => setShowAuthModal(true)}
-                />
+                <div className="bg-blue-50 p-6 rounded-lg border border-blue-200">
+                  <ToastOutput
+                    generatedToast={generatedToast}
+                    onToastChange={setGeneratedToast}
+                    user={user}
+                    selectedRole={selectedRole}
+                    selectedTone={selectedTone}
+                    coupleName1={coupleName1}
+                    coupleName2={coupleName2}
+                    onShowAuthModal={() => setShowAuthModal(true)}
+                  />
+                </div>
 
                 {generatedToast && (
-                  <SpeechActions
-                    toast={generatedToast}
-                    onPracticeMode={() => setShowPracticeMode(true)}
-                    onMobileView={() => setShowMobileView(true)}
-                  />
+                  <div className="bg-blue-50 p-6 rounded-lg border border-blue-200">
+                    <SpeechActions
+                      toast={generatedToast}
+                      onPracticeMode={() => setShowPracticeMode(true)}
+                      onMobileView={() => setShowMobileView(true)}
+                    />
+                  </div>
                 )}
               </div>
             </div>
@@ -123,12 +128,14 @@ const Index = () => {
 
           <TabsContent value="analytics" className="space-y-6">
             {generatedToast ? (
-              <SpeechAnalytics toast={generatedToast} />
+              <div className="bg-blue-50 p-6 rounded-lg border border-blue-200">
+                <SpeechAnalytics toast={generatedToast} />
+              </div>
             ) : (
-              <Card className="shadow-lg border-amber-100">
+              <Card className="shadow-lg border-blue-200 bg-blue-50">
                 <CardContent className="pt-12 pb-12">
-                  <div className="text-center text-gray-500">
-                    <BarChart3 className="h-12 w-12 mx-auto mb-4 text-gray-300" />
+                  <div className="text-center text-blue-600">
+                    <BarChart3 className="h-12 w-12 mx-auto mb-4 text-blue-400" />
                     <p>Generate a toast first to see detailed speech analytics!</p>
                   </div>
                 </CardContent>
@@ -137,16 +144,22 @@ const Index = () => {
           </TabsContent>
 
           <TabsContent value="quotes" className="space-y-6">
-            <QuotesTab onQuoteSelect={setSelectedQuote} />
+            <div className="bg-blue-50 p-6 rounded-lg border border-blue-200">
+              <QuotesTab onQuoteSelect={setSelectedQuote} />
+            </div>
           </TabsContent>
 
           <TabsContent value="templates" className="space-y-6">
-            <TemplatesTab onRoleSelect={setSelectedRole} />
+            <div className="bg-blue-50 p-6 rounded-lg border border-blue-200">
+              <TemplatesTab onRoleSelect={setSelectedRole} />
+            </div>
           </TabsContent>
 
           {user && (
             <TabsContent value="saved" className="space-y-6">
-              <SavedToasts user={user} />
+              <div className="bg-blue-50 p-6 rounded-lg border border-blue-200">
+                <SavedToasts user={user} />
+              </div>
             </TabsContent>
           )}
         </Tabs>
@@ -155,11 +168,14 @@ const Index = () => {
       {/* Reviews Section */}
       <Reviews />
 
-      <footer className="bg-gradient-to-r from-amber-100 to-amber-50 dark:from-gray-800 dark:to-gray-700 border-t border-amber-200 dark:border-gray-600 mt-16">
+      <footer className="bg-gradient-to-r from-yellow-100 to-yellow-50 dark:from-yellow-800 dark:to-yellow-700 border-t border-yellow-200 dark:border-yellow-600 mt-16">
         <div className="container mx-auto px-4 py-8">
-          <div className="text-center text-gray-600 dark:text-gray-300">
+          <div className="text-center text-yellow-700 dark:text-yellow-200">
             <p className="text-sm">
-              Made with ❤️ for unforgettable wedding moments | ToastBot © 2024
+              Made with ❤️ for unforgettable wedding moments | WeddingToastBot © 2024
+            </p>
+            <p className="text-xs mt-1">
+              Lovingly provided by EverUnity Church | Powered by Glowstar Labs
             </p>
           </div>
         </div>
