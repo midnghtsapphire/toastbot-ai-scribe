@@ -8,7 +8,10 @@
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "node scripts/test-baseline.js",
+    "test:baseline": "node scripts/test-baseline.js",
+    "build:baseline": "node scripts/build-baseline.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
