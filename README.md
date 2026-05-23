@@ -1,82 +1,57 @@
-# Welcome to your Lovable project
+# ToastBot AI Scribe
 
-## Project info
+ToastBot AI Scribe is a React + TypeScript web app for generating personalized wedding toasts with built-in practice tools, analytics, templates, and quote discovery.
 
-**URL**: https://lovable.dev/projects/ae0e89b8-999a-41a5-9595-17fa3e91208e
+## What this repository does
 
-## How can I edit this code?
+- Generates customizable wedding toasts by role, tone, and couple details
+- Provides editing, practice mode, and mobile-friendly viewing
+- Includes speech analytics and saved-toast workflows
+- Offers authentication UI flows for returning users
 
-There are several ways of editing your application.
+## How it can be used now
 
-**Use Lovable**
+1. Install dependencies: `npm ci`
+2. Run locally: `npm run dev`
+3. Build production assets: `npm run build`
+4. Validate revvel baseline: `npm test`
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/ae0e89b8-999a-41a5-9595-17fa3e91208e) and start prompting.
+## Website in Test (Vercel)
 
-Changes made via Lovable will be committed automatically to this repo.
+- **Target test URL:** `https://toastbot-ai-scribe.vercel.app` (configure this project in Vercel and update if your assigned URL differs)
+- Vercel is the required test platform for database-ready integrations.
 
-**Use your preferred IDE**
+## Ship-to-market analysis
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Value delivered
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+ToastBot AI Scribe helps event speakers quickly produce high-quality, personalized toasts and rehearse them with confidence, reducing prep time while improving delivery quality.
 
-Follow these steps:
+### Goal priority
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+1. User activation through immediate toast generation value
+2. Retention via saved toasts, templates, and practice tooling
+3. Monetization via premium generation styles and event bundles
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### 3-year revenue projection (goal framing)
 
-# Step 3: Install the necessary dependencies.
-npm i
+- Year 1 target: $1.2M ARR via premium subscriptions and event packages
+- Year 2 target: $3.5M ARR through partnerships and B2B licensing
+- Year 3 target: $10M ARR with multi-event vertical expansion
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+## Revvel-standards artifacts
 
-**Edit a file directly in GitHub**
+- [CHANGELOG.md](./CHANGELOG.md)
+- [DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md)
+- [GO_TO_MARKET.md](./GO_TO_MARKET.md)
+- [BRAND_GUIDELINES.md](./BRAND_GUIDELINES.md)
+- [SECURITY.md](./SECURITY.md)
+- Baseline scripts in [`scripts/`](./scripts)
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Scripts
 
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/ae0e89b8-999a-41a5-9595-17fa3e91208e) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
-
----
-
-## Test
-
-| Feature | Status |
-|---------|--------|
-| Feature | ✅ Ready |
-
+- `npm run dev` — local development
+- `npm run lint` — linting
+- `npm run build` — production build
+- `npm run build:baseline` — baseline wrapper around production build
+- `npm test` / `npm run test:baseline` — revvel baseline checks
