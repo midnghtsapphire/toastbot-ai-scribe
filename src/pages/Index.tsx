@@ -11,6 +11,7 @@ import SpeechAnalytics from "@/components/SpeechAnalytics";
 import SpeechActions from "@/components/SpeechActions";
 import MobileToastView from "@/components/MobileToastView";
 import Header from "@/components/Header";
+import S2MLaunchKit from "@/components/S2MLaunchKit";
 import ToastForm from "@/components/ToastForm";
 import ToastOutput from "@/components/ToastOutput";
 import QuotesTab from "@/components/QuotesTab";
@@ -181,6 +182,8 @@ const Index = () => {
             </TabsContent>
           )}
         </Tabs>
+
+        <S2MLaunchKit />
       </div>
 
       {/* Reviews Section */}

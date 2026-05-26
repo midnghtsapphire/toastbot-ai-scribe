@@ -20,6 +20,7 @@ ToastBot AI Scribe is a React + TypeScript web app for generating personalized w
 
 - **Target test URL:** `https://toastbot-ai-scribe.vercel.app` (configure this project in Vercel and update if your assigned URL differs)
 - Vercel is the required test platform for database-ready integrations.
+- The homepage includes an S2M Launch Kit section covering research signals, launch suggestions, asset inventory, and delivery artifacts.
 
 ## Ship-to-market analysis
 
