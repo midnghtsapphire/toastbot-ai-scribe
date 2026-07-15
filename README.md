@@ -1,5 +1,9 @@
 # ToastBot AI Scribe
 
+
+<!-- AUTO-PACKAGE-BADGES:START -->
+
+<!-- AUTO-PACKAGE-BADGES:END -->
 ToastBot AI Scribe is a React + TypeScript web app for generating personalized wedding toasts with built-in practice tools, analytics, templates, and quote discovery.
 
 ## What this repository does
